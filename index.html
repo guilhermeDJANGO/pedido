@@ -1,161 +1,360 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quer namorar comigo?</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quer namorar comigo? ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset e Box Sizing */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px 20px;
-      background-color: #ffe6f0;
-      margin: 0;
-    }
+        /* Estilos Globais e Fundo Romântico */
+        body {
+            font-family: 'Open Sans', sans-serif; /* Fonte mais suave para o corpo */
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); /* Gradiente rosa suave */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden; /* Evita rolagem horizontal */
+            position: relative;
+        }
 
-    h1 {
-      color: #e60073;
-      font-size: 2em;
-    }
+        /* Título Principal */
+        h1 {
+            color: #880e4f; /* Tom de rosa mais escuro e romântico */
+            font-family: 'Playfair Display', serif; /* Fonte elegante para o título */
+            font-size: 2.8em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave no texto */
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
 
-    #buttons {
-      margin-top: 30px;
-      position: relative;
-      height: 250px;
-      max-width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-    }
+        /* Container dos Botões */
+        #buttons {
+            margin-top: 30px;
+            position: relative;
+            height: 200px; /* Altura ajustada para o movimento do botão "Não" */
+            width: 100%;
+            max-width: 500px; /* Limita a largura para melhor controle do botão "Não" */
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            justify-content: center; /* Centraliza o botão "Sim" inicialmente */
+            align-items: center;
+        }
 
-    button {
-      padding: 15px 30px;
-      font-size: 1.2em;
-      margin: 10px;
-      cursor: pointer;
-      border: none;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-    }
+        /* Estilo Base dos Botões */
+        button {
+            padding: 18px 35px;
+            font-size: 1.4em;
+            margin: 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 30px; /* Botões mais arredondados */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transição suave e elegante */
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada */
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
 
-    #yes {
-      background-color: #4CAF50;
-      color: white;
-    }
+        button:hover {
+            transform: translateY(-3px); /* Efeito de levantar no hover */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
 
-    #no {
-      background-color: #f44336;
-      color: white;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+        /* Botão "Sim" */
+        #yes {
+            background: linear-gradient(45deg, #4CAF50, #66bb6a); /* Gradiente verde suave */
+            color: white;
+            z-index: 10; /* Garante que o "Sim" fique por cima */
+        }
 
-    #message {
-      display: none;
-      font-size: 1.5em;
-      color: #ff3399;
-      margin-top: 50px;
-      animation: fadeIn 2s ease-in-out;
-    }
+        /* Botão "Não" */
+        #no {
+            background: linear-gradient(45deg, #f44336, #ef5350); /* Gradiente vermelho suave */
+            color: white;
+            position: absolute; /* Permite o movimento aleatório */
+            top: 50%; /* Centraliza verticalmente inicialmente */
+            left: 50%; /* Centraliza horizontalmente inicialmente */
+            transform: translate(-50%, -50%); /* Ajusta para o centro exato */
+            white-space: nowrap; /* Evita que o texto quebre */
+        }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
+        /* Mensagem de Sucesso */
+        #message {
+            display: none;
+            font-size: 2em;
+            color: #d81b60; /* Rosa vibrante */
+            margin-top: 50px;
+            animation: fadeInScale 1.5s ease-in-out forwards; /* Animação de fade-in e escala */
+            font-family: 'Playfair Display', serif;
+            line-height: 1.4;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(5px); /* Efeito de vidro fosco */
+        }
 
-    .confetti {
-      font-size: 30px;
-      animation: fall 3s linear infinite;
-      position: absolute;
-      pointer-events: none;
-    }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to   { opacity: 1; transform: scale(1); }
+        }
 
-    @keyframes fall {
-      0%   { top: -50px; opacity: 1; }
-      100% { top: 100%; opacity: 0; }
-    }
+        /* Confete */
+        .confetti {
+            font-size: 30px;
+            animation: fall 3s linear infinite;
+            position: absolute;
+            pointer-events: none;
+            z-index: 9999; /* Garante que o confete fique por cima de tudo */
+        }
 
-    /* Responsividade */
-    @media (max-width: 600px) {
-      button {
-        padding: 12px 20px;
-        font-size: 1em;
-      }
+        @keyframes fall {
+            0%   { top: -50px; opacity: 1; transform: rotate(0deg); }
+            100% { top: 100%; opacity: 0; transform: rotate(720deg); }
+        }
 
-      h1 {
-        font-size: 1.6em;
-      }
+        /* Estilo Polaroid */
+        #polaroid-gallery {
+            display: none; /* Inicialmente escondido */
+            flex-wrap: wrap; /* Quebra para a próxima linha em telas pequenas */
+            justify-content: center;
+            gap: 30px; /* Espaço entre as polaroids */
+            margin-top: 50px;
+            animation: fadeIn 2s ease-in-out forwards;
+            max-width: 1200px; /* Limita a largura da galeria */
+        }
 
-      #buttons {
-        height: 200px;
-      }
+        .polaroid {
+            background-color: white;
+            padding: 15px 15px 40px 15px; /* Mais espaço na parte inferior para a legenda */
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Sombra mais suave */
+            transform: rotate(var(--rotation)); /* Rotação aleatória via JS */
+            transition: transform 0.3s ease;
+            width: 280px; /* Largura fixa para a polaroid */
+            flex-shrink: 0; /* Não encolhe em telas pequenas */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-      #message {
-        font-size: 1.2em;
-      }
-    }
-  </style>
+        .polaroid img {
+            width: 100%;
+            height: 200px; /* Altura fixa para a imagem dentro da polaroid */
+            object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+            display: block;
+            border-radius: 3px; /* Cantos levemente arredondados para a imagem */
+        }
+
+        .polaroid-caption {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1em;
+            color: #555;
+            margin-top: 15px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+
+            button {
+                padding: 15px 25px;
+                font-size: 1.2em;
+            }
+
+            #message {
+                font-size: 1.6em;
+            }
+
+            .polaroid {
+                width: 250px; /* Ajusta largura para telas menores */
+                padding: 12px 12px 35px 12px;
+            }
+
+            .polaroid img {
+                height: 180px;
+            }
+
+            .polaroid-caption {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            #buttons {
+                height: 180px;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+
+            #message {
+                font-size: 1.3em;
+            }
+
+            .polaroid {
+                width: 220px; /* Ainda menor para celulares */
+                padding: 10px 10px 30px 10px;
+            }
+
+            .polaroid img {
+                height: 160px;
+            }
+
+            .polaroid-caption {
+                font-size: 0.9em;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <h1>Quer namorar comigo? 💖</h1>
+    <h1>Quer namorar comigo? 💖</h1>
 
-  <div id="buttons">
-    <button id="yes">Sim</button>
-    <button id="no">Não</button>
-  </div>
+    <div id="buttons">
+        <button id="yes">Sim</button>
+        <button id="no">Não</button>
+    </div>
 
-  <div id="message">
-    🎉 Parabéns! 🎉<br>
-    Obrigado por me deixar te fazer a mulher mais feliz do mundo! 💕
-  </div>
+    <div id="message">
+        🎉 Muito Obrigado! 🎉<br>
+        
+        
+        Meu amor,
 
-  <script>
-    const noBtn = document.getElementById('no');
-    const yesBtn = document.getElementById('yes');
-    const message = document.getElementById('message');
-    const buttons = document.getElementById('buttons');
+Ter você ao meu lado é a maior das bênçãos. Cada "sim" que damos um ao outro é um passo em direção a um futuro que eu sei que será repleto de alegria, cumplicidade e muito amor.
 
-    // Botão "não" foge
-    noBtn.addEventListener('mouseenter', moveButton);
-    noBtn.addEventListener('touchstart', moveButton);
+Que a nossa jornada juntos seja leve, cheia de risadas, descobertas e a certeza de que sempre teremos um ao outro para apoiar e celebrar. Que venham muitos momentos felizes, sonhos realizados e um amor que só cresce a cada dia.
 
-    function moveButton() {
-      const maxX = buttons.clientWidth - noBtn.offsetWidth;
-      const maxY = buttons.clientHeight - noBtn.offsetHeight;
+Obrigado(a) por ser você e por aceitar construir essa história linda comigo. Tenho certeza de que o melhor ainda está por vir para nós!
 
-      const randX = Math.floor(Math.random() * maxX);
-      const randY = Math.floor(Math.random() * maxY);
+Com todo o meu amor, 
+Seu pretin 💖
+    </div>
 
-      noBtn.style.left = randX + 'px';
-      noBtn.style.top = randY + 'px';
-    }
+    <div id="polaroid-gallery">
+        <!-- As fotos em formato polaroid serão inseridas aqui via JavaScript -->
+    </div>
 
-    // Ao clicar no "sim"
-    yesBtn.addEventListener('click', () => {
-      buttons.style.display = 'none';
-      message.style.display = 'block';
-      launchConfetti();
-    });
+    <script>
+        const noBtn = document.getElementById('no');
+        const yesBtn = document.getElementById('yes');
+        const message = document.getElementById('message');
+        const buttons = document.getElementById('buttons');
+        const polaroidGallery = document.getElementById('polaroid-gallery');
 
-    // Confete
-    function launchConfetti() {
-      for (let i = 0; i < 50; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.innerText = '🎊';
-        confetti.style.left = Math.random() * 100 + 'vw';
-        confetti.style.animationDelay = Math.random() * 3 + 's';
-        document.body.appendChild(confetti);
+        // Array de URLs das suas fotos e legendas românticas
+        // ATENÇÃO: Substitua 'nome_da_sua_foto.jpg' pelos nomes reais dos seus arquivos de imagem
+        // que estão dentro da pasta 'img'.
+        const photos = [
+            { url: './img/Imagem do WhatsApp de 2025-07-23 à(s) 19.40.36_20233543.jpg', caption: 'Nosso primeiro sorriso juntos!' },
+            { url: './img/Imagem do WhatsApp de 2025-07-23 à(s) 19.40.36_a4d0ddb1.jpg', caption: 'Momentos inesquecíveis ao seu lado.' },
+            { url: './img/Imagem do WhatsApp de 2025-07-23 à(s) 19.40.37_78ad35a3.jpg', caption: 'Cada dia é uma nova aventura com você.' },
+            { url: './img/Imagem do WhatsApp de 2025-07-23 à(s) 19.40.37_f38804da.jpg', caption: 'Onde quer que eu vá, você é o meu lar.' }
+        ];
 
-        setTimeout(() => confetti.remove(), 5000);
-      }
-    }
-  </script>
+        // Função para mover o botão "não"
+        noBtn.addEventListener('mouseenter', moveButton);
+        noBtn.addEventListener('touchstart', moveButton); // Para dispositivos de toque
+
+        function moveButton() {
+            const maxX = buttons.clientWidth - noBtn.offsetWidth;
+            const maxY = buttons.clientHeight - noBtn.offsetHeight;
+
+            // Garante que o botão não saia da área visível do container
+            const randX = Math.max(0, Math.floor(Math.random() * maxX));
+            const randY = Math.max(0, Math.floor(Math.random() * maxY));
+
+            noBtn.style.left = randX + 'px';
+            noBtn.style.top = randY + 'px';
+        }
+
+        // Ao clicar no "sim"
+        yesBtn.addEventListener('click', () => {
+            buttons.style.display = 'none'; // Esconde os botões
+            message.style.display = 'block'; // Mostra a mensagem de sucesso
+            polaroidGallery.style.display = 'flex'; // Mostra a galeria de polaroids
+            launchConfetti(); // Lança o confete
+            displayPolaroids(); // Exibe as fotos em polaroid
+        });
+
+        // Função para lançar confete
+        function launchConfetti() {
+            const confettiColors = ['#ffcc00', '#ff66b2', '#99ff99', '#66ccff', '#cc66ff', '#ffffff']; // Cores mais românticas
+            for (let i = 0; i < 70; i++) { // Mais confetes
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.innerText = '💖'; // Emojis de coração ou estrelas
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -Math.random() * 200 + 'px'; // Começa mais alto
+                confetti.style.animationDelay = Math.random() * 4 + 's';
+                confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                confetti.style.opacity = Math.random() * 0.7 + 0.3; // Opacidade variada
+                confetti.style.transform = `scale(${Math.random() * 0.8 + 0.5})`; // Tamanho variado
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 6000); // Remove depois de mais tempo
+            }
+        }
+
+        // Função para exibir as fotos em formato polaroid
+        function displayPolaroids() {
+            photos.forEach((photo, index) => {
+                const polaroid = document.createElement('div');
+                polaroid.className = 'polaroid';
+                // Adiciona uma rotação aleatória para cada polaroid
+                const randomRotation = (Math.random() * 6 - 3); // Entre -3 e 3 graus
+                polaroid.style.setProperty('--rotation', `${randomRotation}deg`);
+
+                // Adiciona um pequeno atraso para cada polaroid aparecer sequencialmente
+                polaroid.style.animationDelay = `${0.2 * index}s`;
+
+                const img = document.createElement('img');
+                img.src = photo.url;
+                img.alt = photo.caption; // Alt text para acessibilidade
+                // Fallback para imagens que não carregam
+                img.onerror = function() {
+                    this.src = `https://placehold.co/280x200/FFC0CB/FFFFFF?text=Foto+Indisponível`; // Placeholder romântico
+                    this.alt = "Imagem indisponível";
+                };
+
+                const caption = document.createElement('p');
+                caption.className = 'polaroid-caption';
+                caption.innerText = photo.caption;
+
+                polaroid.appendChild(img);
+                polaroid.appendChild(caption);
+                polaroidGallery.appendChild(polaroid);
+            });
+        }
+    </script>
 
 </body>
 </html>
